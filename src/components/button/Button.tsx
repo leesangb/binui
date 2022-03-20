@@ -1,75 +1,69 @@
+import { darken } from 'polished';
 import { ButtonHTMLAttributes } from 'react';
-import styled, { CSSProperties } from 'styled-components';
-import { BinuiTheme } from '../../theme/BinuiTheme';
+import styled, { css, CSSProperties } from 'styled-components';
+import { BinuiTheme } from '../../theme';
 
 type BinuiButtonVariant = 'default' | 'outlined' | 'contained';
 
-export interface ButtonProps {
+export interface BinuiButtonProps {
     label?: string;
     variant: BinuiButtonVariant;
 }
 
-const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => CSSProperties & { hover?: CSSProperties }> = {
-    default: theme =>
-        theme.mode === 'light'
-            ? ({
-                background: 'none',
-                color: '#a09fea',
-                border: 'none',
-            }) : ({
-                background: 'none',
-                color: '#605edb',
-                border: 'none',
-            })
-    ,
-    outlined: theme =>
-        theme.mode === 'light'
-            ? ({
-                background: 'none',
-                color: '#a09fea',
-                border: '1px solid #a09fea',
-            }) : ({
-                background: 'none',
-                color: '#605edb',
-                border: '1px solid #605edb',
-            }),
+type ButtonProps = BinuiButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 
-    contained: theme =>
-        theme.mode === 'light'
-            ? ({
-                color: '#f2f2f2',
-                background: '#a09fea',
-                border: 'none',
-            }) : ({
-                color: '#f2f2f2',
-                background: '#605edb',
-                border: 'none',
-            }),
+const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => CSSProperties & { hover?: CSSProperties }> = {
+    default: theme => ({
+        backgroundColor: 'unset',
+        color: theme.colors.primary[theme.mode],
+        border: 'none',
+        hover: {
+            color: darken(0.1, theme.colors.primary[theme.mode]),
+        },
+    }),
+    outlined: theme => ({
+        backgroundColor: 'unset',
+        color: theme.colors.primary[theme.mode],
+        border: `1px solid`,
+        borderColor: theme.colors.primary[theme.mode],
+        hover: {
+            color: darken(0.1, theme.colors.primary[theme.mode]),
+            borderColor: darken(0.1, theme.colors.primary[theme.mode]),
+        },
+    }),
+    contained: theme => ({
+        color: '#f2f2f2',
+        backgroundColor: theme.colors.primary[theme.mode],
+        border: 'none',
+        hover: {
+            backgroundColor: darken(0.1, theme.colors.primary[theme.mode]),
+        },
+    }),
 };
 
-const StyledButton = styled.button<ButtonProps>`
-  border-radius: ${({ theme }) => theme.borderRadius};
-  font-size: 1em;
-  padding: 0.25em 1em;
-  transition: 0.25s;
-  cursor: pointer;
-  user-select: none;
-  border: ${({ theme, variant }) => buttonVariants[variant](theme).border};
-  color: ${({ theme, variant }) => buttonVariants[variant](theme).color};
-  background: ${({ theme, variant }) => buttonVariants[variant](theme).background};
-  opacity: 0.8;
+const StyledButton = styled.button<ButtonProps>(({ theme, variant }) => {
+    const button = buttonVariants[variant](theme);
+    return css`
+      border-radius: ${theme.borderRadius};
+      font-size: 1em;
+      padding: 0.25em 1em;
+      transition: 0.25s;
+      cursor: pointer;
+      user-select: none;
+      border: ${button.border};
+      border-color: ${button.borderColor};
+      color: ${button.color};
+      background-color: ${button.backgroundColor};
 
-  &:hover {
-    opacity: 1;
-  }
-`;
+      &:hover {
+        color: ${button.hover?.color};
+        border-color: ${button.hover?.borderColor};
+        background-color: ${button.hover?.backgroundColor};
+      }
+    `;
+});
 
-const Button = ({
-                    label,
-                    variant,
-                    children,
-                    ...buttonProps
-                }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
+const Button = ({ label, variant, children, ...buttonProps }: ButtonProps) => {
     return (
         <StyledButton variant={variant} {...buttonProps}>
             {label}
