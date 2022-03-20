@@ -1,13 +1,15 @@
-import { darken } from 'polished';
+import { darken, readableColor, rgba } from 'polished';
 import { ButtonHTMLAttributes } from 'react';
 import styled, { css, CSSProperties } from 'styled-components';
 import { BinuiTheme } from '../../theme';
 
 type BinuiButtonVariant = 'default' | 'outlined' | 'contained';
+type BinuiButtonSize = 'small' | 'medium' | 'large'
 
 export interface BinuiButtonProps {
     label?: string;
-    variant: BinuiButtonVariant;
+    variant?: BinuiButtonVariant;
+    size?: BinuiButtonSize;
 }
 
 type ButtonProps = BinuiButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
@@ -19,6 +21,7 @@ const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => CSSPrope
         border: 'none',
         hover: {
             color: darken(0.1, theme.colors.primary[theme.mode]),
+            backgroundColor: rgba(darken(0.1, theme.colors.primary[theme.mode]), 0.05),
         },
     }),
     outlined: theme => ({
@@ -29,25 +32,26 @@ const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => CSSPrope
         hover: {
             color: darken(0.1, theme.colors.primary[theme.mode]),
             borderColor: darken(0.1, theme.colors.primary[theme.mode]),
+            backgroundColor: rgba(darken(0.1, theme.colors.primary[theme.mode]), 0.05),
         },
     }),
     contained: theme => ({
-        color: '#f2f2f2',
+        color: readableColor(theme.colors.primary[theme.mode]),
         backgroundColor: theme.colors.primary[theme.mode],
         border: 'none',
         hover: {
-            backgroundColor: darken(0.1, theme.colors.primary[theme.mode]),
+            backgroundColor: darken(0.05, theme.colors.primary[theme.mode]),
         },
     }),
 };
 
-const StyledButton = styled.button<ButtonProps>(({ theme, variant }) => {
+const StyledButton = styled.button<ButtonProps>(({ theme, variant, size }) => {
     const button = buttonVariants[variant](theme);
     return css`
       border-radius: ${theme.borderRadius};
-      font-size: 1em;
+      font-size: ${size === 'medium' ? '1em' : size === 'small' ? '0.8em' : '1.2em'};
       padding: 0.25em 1em;
-      transition: 0.25s;
+      transition: all 0.25s;
       cursor: pointer;
       user-select: none;
       border: ${button.border};
@@ -63,9 +67,9 @@ const StyledButton = styled.button<ButtonProps>(({ theme, variant }) => {
     `;
 });
 
-const Button = ({ label, variant, children, ...buttonProps }: ButtonProps) => {
+const Button = ({ label, variant, size, children, ...buttonProps }: ButtonProps) => {
     return (
-        <StyledButton variant={variant} {...buttonProps}>
+        <StyledButton variant={variant} size={size} {...buttonProps}>
             {label}
         </StyledButton>
     );
@@ -73,6 +77,7 @@ const Button = ({ label, variant, children, ...buttonProps }: ButtonProps) => {
 
 Button.defaultProps = {
     variant: 'default',
+    size: 'medium',
 };
 
 export default Button;
