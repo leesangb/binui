@@ -7,8 +7,8 @@ type BinuiButtonVariant = 'default' | 'outlined' | 'contained';
 type BinuiButtonSize = 'small' | 'medium' | 'large'
 
 interface StyledBinuiButtonProps {
-    variant: BinuiButtonVariant;
-    size: BinuiButtonSize;
+    variant?: BinuiButtonVariant;
+    size?: BinuiButtonSize;
 }
 
 export interface BinuiButtonProps extends StyledBinuiButtonProps {
@@ -49,7 +49,7 @@ const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => CSSPrope
 };
 
 const StyledButton = styled.button<StyledBinuiButtonProps>(({ theme, variant, size }) => {
-    const button = buttonVariants[variant](theme);
+    const button = buttonVariants[variant!](theme);
     return css`
       border-radius: ${theme.borderRadius};
       font-size: ${size === 'medium' ? '1em' : size === 'small' ? '0.8em' : '1.2em'};
