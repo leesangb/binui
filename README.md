@@ -2,19 +2,27 @@
 
 ## Installation
 
-TODO
+```shell
+npm install @leesangb/binui
+```
+
+### Peer dependencies
+
+```shell
+npm install styled-components
+```
 
 ## Usage
 
 ```typescript jsx
-import { BinuiThemeProvider, createBinuiTheme, Button } from 'binui';
+import { BinuiThemeProvider, createBinuiTheme, Button } from '@leesangb/binui';
 
 const theme = createBinuiTheme();
 
 const ChildComponent = () => {
     return (
         <>
-            <Button label={'안녕 친구들!'}/>
+            <Button label={'안녕 친구들!'} onClick={() => alert('클릭!')}/>
         </>
     )
 }
@@ -27,4 +35,10 @@ const App = () => {
         </BinuiThemeProvider>
     )
 }
+```
+
+## Development
+
+```shell
+npm run storybook
 ```
