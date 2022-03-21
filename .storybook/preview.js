@@ -1,4 +1,6 @@
-import BinuiThemeLayout from '../src/theme/BinuiThemeLayout';
+import { useDarkMode } from 'storybook-dark-mode';
+import { createBinuiTheme } from '../src';
+import BinuiThemeProvider from '../src/theme/BinuiThemeProvider';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -13,8 +15,8 @@ export const parameters = {
 
 export const decorators = [
     (Story) => (
-        <BinuiThemeLayout>
+        <BinuiThemeProvider theme={createBinuiTheme({ mode: useDarkMode() ? 'dark' : 'light' })}>
             <Story/>
-        </BinuiThemeLayout>
+        </BinuiThemeProvider>
     ),
 ];

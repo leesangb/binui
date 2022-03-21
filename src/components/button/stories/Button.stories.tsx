@@ -15,6 +15,9 @@ export default {
                 type: 'select',
             },
         },
+        onClick: {
+            action: 'clicked',
+        },
     },
 } as ComponentMeta<typeof Button>;
 
@@ -25,7 +28,6 @@ Default.args = {
     label: '나는 그냥 버튼이야',
     variant: 'default',
     size: 'medium',
-    onClick: () => alert('아야!'),
 };
 
 export const Outlined = Template.bind({});
