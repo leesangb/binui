@@ -48,11 +48,17 @@ const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => CSSPrope
     }),
 };
 
+const fontSize: Record<BinuiButtonSize, string> = {
+    small: '0.8em',
+    medium: '1em',
+    large: '1.2em',
+};
+
 const StyledButton = styled.button<StyledBinuiButtonProps>(({ theme, variant, size }) => {
     const button = buttonVariants[variant!](theme);
     return css`
       border-radius: ${theme.borderRadius};
-      font-size: ${size === 'medium' ? '1em' : size === 'small' ? '0.8em' : '1.2em'};
+      font-size: ${fontSize[size!]};
       padding: 0.25em 1em;
       transition: all 0.25s;
       cursor: pointer;
