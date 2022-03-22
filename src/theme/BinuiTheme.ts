@@ -5,6 +5,7 @@ type BinuiThemeColor = Record<BinuiThemeMode, string>;
 export interface BinuiThemeColors {
     primary: BinuiThemeColor;
     background: BinuiThemeColor;
+    paper: BinuiThemeColor;
 }
 
 export interface BinuiTheme {
@@ -25,6 +26,10 @@ export const createBinuiTheme = (overrides?: Partial<BinuiTheme>): BinuiTheme =>
             light: '#f2f2f2',
             dark: '#2f2f2f',
             ...overrides?.colors?.background,
+        },
+        paper: {
+            light: '#fcfcfc',
+            dark: '#3a3a3a',
         },
     },
     borderRadius: overrides?.borderRadius || '8px',
