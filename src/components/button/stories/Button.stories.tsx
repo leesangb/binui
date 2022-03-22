@@ -15,6 +15,12 @@ export default {
                 type: 'select',
             },
         },
+        weight: {
+            control: {
+                type: 'text',
+            },
+            defaultValue: 'normal',
+        },
         onClick: {
             action: 'clicked',
         },
