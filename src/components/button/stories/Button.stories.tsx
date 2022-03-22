@@ -9,11 +9,13 @@ export default {
             control: {
                 type: 'select',
             },
+            defaultValue: 'default',
         },
         size: {
             control: {
                 type: 'select',
             },
+            defaultValue: 'medium',
         },
         weight: {
             control: {
@@ -33,19 +35,16 @@ export const Default = Template.bind({});
 Default.args = {
     label: '나는 그냥 버튼이야',
     variant: 'default',
-    size: 'medium',
 };
 
 export const Outlined = Template.bind({});
 Outlined.args = {
     label: '나는 경계선이 있는 버튼이야',
-    size: 'medium',
     variant: 'outlined',
 };
 
 export const Contained = Template.bind({});
 Contained.args = {
     label: '나는 채워져 있는 버튼이야',
-    size: 'medium',
     variant: 'contained',
 };
