@@ -19,7 +19,7 @@ export default {
             control: {
                 type: 'text',
             },
-            defaultValue: 'normal',
+            defaultValue: '500',
         },
         onClick: {
             action: 'clicked',

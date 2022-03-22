@@ -94,7 +94,7 @@ const Button = ({ label, variant, size, weight, children, ...buttonProps }: Butt
 Button.defaultProps = {
     variant: 'default',
     size: 'medium',
-    weight: 'normal',
+    weight: 500,
 };
 
 export default Button;
