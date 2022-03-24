@@ -6,6 +6,7 @@ export interface BinuiThemeColors {
     primary: BinuiThemeColor;
     background: BinuiThemeColor;
     paper: BinuiThemeColor;
+    text: BinuiThemeColor;
 }
 
 export interface BinuiTheme {
@@ -30,6 +31,10 @@ export const createBinuiTheme = (overrides?: Partial<BinuiTheme>): BinuiTheme =>
         paper: {
             light: '#fcfcfc',
             dark: '#3a3a3a',
+        },
+        text: {
+            light: '#121212',
+            dark: '#f2f2f2',
         },
     },
     borderRadius: overrides?.borderRadius || '8px',
