@@ -1,23 +1,23 @@
 import { AnchorHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
-import { buttonStyles, StyledBinuiButtonProps } from './Button.styles';
+import { buttonStyles, buttonVariantStyles, StyledBinuiButtonProps } from './Button.styles';
 
-export interface BinuiButtonProps extends StyledBinuiButtonProps {
-    label: string;
+interface BinuiLinkButtonProps extends StyledBinuiButtonProps {
 }
 
-type LinkButtonProps = BinuiButtonProps & AnchorHTMLAttributes<HTMLAnchorElement>
+type LinkButtonProps = BinuiLinkButtonProps & AnchorHTMLAttributes<HTMLAnchorElement>
 
-const StyledButton = styled.a<StyledBinuiButtonProps>(
+const StyledLinkButton = styled.a<StyledBinuiButtonProps>(
     buttonStyles,
+    buttonVariantStyles,
     css`text-decoration: none`,
 );
 
-const LinkButton = ({ label, variant, size, weight, children, ...buttonProps }: LinkButtonProps) => {
+const LinkButton = ({ variant, size, weight, children, ...linkProps }: LinkButtonProps) => {
     return (
-        <StyledButton variant={variant} size={size} weight={weight} {...buttonProps}>
-            {label}
-        </StyledButton>
+        <StyledLinkButton variant={variant} size={size} weight={weight} {...linkProps}>
+            {children}
+        </StyledLinkButton>
     );
 };
 

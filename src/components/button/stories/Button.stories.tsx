@@ -31,20 +31,21 @@ export default {
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
+
 export const Default = Template.bind({});
 Default.args = {
-    label: '나는 그냥 버튼이야',
+    children: '나는 그냥 버튼이야',
     variant: 'default',
 };
 
 export const Outlined = Template.bind({});
 Outlined.args = {
-    label: '나는 경계선이 있는 버튼이야',
+    children: '나는 경계선이 있는 버튼이야',
     variant: 'outlined',
 };
 
 export const Contained = Template.bind({});
 Contained.args = {
-    label: '나는 채워져 있는 버튼이야',
+    children: '나는 채워져 있는 버튼이야',
     variant: 'contained',
 };
