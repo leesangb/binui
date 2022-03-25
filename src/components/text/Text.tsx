@@ -1,34 +1,59 @@
 import { HTMLAttributes } from 'react';
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation, ThemeProps } from 'styled-components';
 import { BinuiTheme } from '../../theme';
 
 interface StyledTextProps {
-    as?: ComponentType;
+    as?: TextComponentType;
+    variant?: TextComponentType;
 }
 
 
 const components = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p'] as const;
-type ComponentType = typeof components[number]
+type TextComponentType = typeof components[number]
 
-const styleMapping: Record<ComponentType, (theme: BinuiTheme) => FlattenSimpleInterpolation> = {
+const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimpleInterpolation> = {
     h1: theme => css`
       font-weight: 700;
     `,
-    h2: theme => css``,
-    h3: theme => css``,
-    h4: theme => css``,
-    h5: theme => css``,
-    h6: theme => css``,
-    div: theme => css``,
-    span: theme => css``,
-    p: theme => css``,
+    h2: theme => css`
+      font-weight: 700;
+    `,
+    h3: theme => css`
+      font-weight: 600;
+    `,
+    h4: theme => css`
+      font-weight: 600;
+    `,
+    h5: theme => css`
+      font-weight: 500;
+    `,
+    h6: theme => css`
+      font-weight: 500;
+    `,
+    div: theme => css`
+      font-weight: 400;
+    `,
+    span: theme => css`
+      font-weight: 400;
+    `,
+    p: theme => css`
+      font-weight: 400;
+    `,
 };
 
+
+const textStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
+  color: ${theme.colors.text[theme.mode]};
+  transition: all 0.25s;
+`;
+
+const textVariantsStyle = ({ theme, as, variant }: StyledTextProps & ThemeProps<BinuiTheme>) =>
+    styleMapping[variant || as!]!(theme);
+
 const StyledText = styled.div<StyledTextProps>(
-    ({ theme }: { theme: BinuiTheme }) => css`
-      color: ${theme.colors.text[theme.mode]};
-    `,
-    ({ theme, as }: StyledTextProps & { theme: BinuiTheme }) => styleMapping[as!]!(theme));
+    textStyle,
+    textVariantsStyle,
+);
 
 interface TextProps extends HTMLAttributes<HTMLDivElement> {
 }
