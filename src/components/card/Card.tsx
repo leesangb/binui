@@ -8,6 +8,7 @@ const StyledCard = styled.div(({ theme }: { theme: BinuiTheme }) => css`
   background-color: ${theme.colors.paper[theme.mode]};
   box-shadow: ${`3px 3px 10px 0px ${darken(0.15, theme.colors.background[theme.mode])}`};
   padding: 8px;
+  transition: all 0.25s;
 `);
 
 const Card = ({ ...divProps }: HTMLAttributes<HTMLDivElement>) => {
