@@ -3,13 +3,13 @@ import { PropsWithChildren } from 'react';
 import styled, { css, CSSProperties, FlattenSimpleInterpolation } from 'styled-components';
 import { BinuiTheme, BinuiThemeMode } from '../../theme';
 
-type ButtonType = 'button' | 'a' | undefined;
+type ButtonType = 'button' | 'a';
 
-interface BinuiButtonProps<T extends ButtonType> extends StyledBinuiButtonProps {
+interface BinuiButtonProps<T extends ButtonType | undefined> extends StyledBinuiButtonProps {
     as: T;
 }
 
-type ButtonProps<T extends ButtonType> = BinuiButtonProps<T> & JSX.IntrinsicElements[NonNullable<T>]
+type ButtonProps<T extends ButtonType | undefined> = BinuiButtonProps<T> & JSX.IntrinsicElements[NonNullable<T>]
 type BinuiButtonSize = 'small' | 'medium' | 'large'
 type BinuiButtonVariant = 'default' | 'outlined' | 'contained';
 
@@ -82,9 +82,9 @@ const StyledButton = styled.button<StyledBinuiButtonProps>(
     css`text-decoration: none`,
 );
 
-const Button = <T extends ButtonType>({ as, variant, size, weight, ...others }: PropsWithChildren<ButtonProps<T>>) => {
+const Button = <T extends ButtonType | undefined>({ as, ...others }: PropsWithChildren<ButtonProps<T>>) => {
     return (
-        <StyledButton as={as} variant={variant} size={size} weight={weight} {...others}/>
+        <StyledButton as={as} {...others}/>
     );
 };
 

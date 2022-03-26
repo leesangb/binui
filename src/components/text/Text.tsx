@@ -2,16 +2,19 @@ import { PropsWithChildren } from 'react';
 import styled, { css, FlattenSimpleInterpolation, ThemeProps } from 'styled-components';
 import { BinuiTheme } from '../../theme';
 
+const components = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p'] as const;
+type TextComponentType = typeof components[number];
+
 interface StyledTextProps {
     variant?: TextComponentType;
 }
 
-const components = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p'] as const;
-type TextComponentType = typeof components[number];
-
 interface BinuiTextProps<T extends TextComponentType | undefined> extends StyledTextProps {
     as: T;
 }
+
+type TextProps<T extends TextComponentType | undefined> = BinuiTextProps<T> & JSX.IntrinsicElements[NonNullable<T>]
+
 
 const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimpleInterpolation> = {
     h1: theme => css`
@@ -57,7 +60,6 @@ const StyledText = styled.div<BinuiTextProps<TextComponentType>>(
     textVariantsStyle,
 );
 
-type TextProps<T extends TextComponentType | undefined> = BinuiTextProps<T> & JSX.IntrinsicElements[NonNullable<T>]
 const Text = <T extends TextComponentType | undefined>({ as, variant, ...others }: PropsWithChildren<TextProps<T>>) =>
     <StyledText as={as} variant={variant} {...others} />;
 
