@@ -6,7 +6,7 @@ import { BinuiTheme, BinuiThemeMode } from '../../theme';
 type ButtonType = 'button' | 'a';
 
 interface BinuiButtonProps<T extends ButtonType | undefined> extends StyledBinuiButtonProps {
-    as: T;
+    as?: T;
 }
 
 type ButtonProps<T extends ButtonType | undefined> = BinuiButtonProps<T> & JSX.IntrinsicElements[NonNullable<T>]
@@ -65,7 +65,7 @@ const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => FlattenS
 
 const buttonStyles = ({ theme, size, weight }: StyledBinuiButtonProps & { theme: BinuiTheme }) => css`
   border-radius: ${theme.borderRadius};
-  font-size: ${fontSize[size!]};
+  font-size: ${fontSize[size || 'medium']};
   font-weight: ${weight || 400};
   padding: 0.25em 1em;
   transition: all 0.25s;
@@ -74,7 +74,7 @@ const buttonStyles = ({ theme, size, weight }: StyledBinuiButtonProps & { theme:
 `;
 
 const buttonVariantStyles = ({ variant, theme }: StyledBinuiButtonProps & { theme: BinuiTheme }) =>
-    buttonVariants[variant!](theme);
+    buttonVariants[variant || 'default'](theme);
 
 const StyledButton = styled.button<StyledBinuiButtonProps>(
     buttonStyles,

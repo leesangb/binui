@@ -10,7 +10,7 @@ interface StyledTextProps {
 }
 
 interface BinuiTextProps<T extends TextComponentType | undefined> extends StyledTextProps {
-    as: T;
+    as?: T;
 }
 
 type TextProps<T extends TextComponentType | undefined> = BinuiTextProps<T> & JSX.IntrinsicElements[NonNullable<T>]
@@ -53,7 +53,7 @@ const textStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
 `;
 
 const textVariantsStyle = ({ theme, as, variant }: BinuiTextProps<TextComponentType> & ThemeProps<BinuiTheme>) =>
-    styleMapping[variant || as](theme);
+    styleMapping[variant || as || 'div'](theme);
 
 const StyledText = styled.div<BinuiTextProps<TextComponentType>>(
     textStyle,
