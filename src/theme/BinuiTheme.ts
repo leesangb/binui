@@ -1,3 +1,5 @@
+import deepmerge from 'deepmerge';
+
 export type BinuiThemeMode = 'light' | 'dark';
 
 type BinuiThemeColor = Record<BinuiThemeMode, string>;
@@ -15,18 +17,16 @@ export interface BinuiTheme {
     borderRadius: string;
 }
 
-export const createBinuiTheme = (overrides?: Partial<BinuiTheme>): BinuiTheme => ({
-    mode: overrides?.mode || 'light',
+const defaultTheme = (): BinuiTheme => ({
+    mode: 'light',
     colors: {
         primary: {
             light: '#a09fea',
             dark: '#605edb',
-            ...overrides?.colors?.primary,
         },
         background: {
-            light: '#f2f2f2',
+            light: '#fcfcfc',
             dark: '#2f2f2f',
-            ...overrides?.colors?.background,
         },
         paper: {
             light: '#fcfcfc',
@@ -37,5 +37,8 @@ export const createBinuiTheme = (overrides?: Partial<BinuiTheme>): BinuiTheme =>
             dark: '#f2f2f2',
         },
     },
-    borderRadius: overrides?.borderRadius || '8px',
+    borderRadius: '8px',
 });
+
+export const createBinuiTheme = (overrides: Partial<BinuiTheme> = {}): BinuiTheme =>
+    deepmerge(defaultTheme(), overrides);
