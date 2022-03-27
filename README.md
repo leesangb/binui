@@ -42,3 +42,7 @@ const App = () => {
 ```shell
 npm run storybook
 ```
+
+## Preview
+
+[Storybook](https://binui.leesangbin.com)
