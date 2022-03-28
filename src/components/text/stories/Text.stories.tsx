@@ -68,4 +68,14 @@ Span.args = {
     as: 'span',
     children,
 };
+export const Strong = Template.bind({});
+Strong.args = {
+    as: 'strong',
+    children,
+};
+export const B = Template.bind({});
+B.args = {
+    as: 'b',
+    children,
+};
 
