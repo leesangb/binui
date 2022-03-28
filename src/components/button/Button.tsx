@@ -84,7 +84,7 @@ const StyledButton = styled.button<StyledBinuiButtonProps>(
 
 const Button = <T extends ButtonType | undefined>({ as, ...others }: PropsWithChildren<ButtonProps<T>>) => {
     return (
-        <StyledButton as={as} {...others}/>
+        <StyledButton as={as || 'button'} {...others}/>
     );
 };
 
