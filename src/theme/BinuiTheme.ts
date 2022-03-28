@@ -9,16 +9,21 @@ export interface BinuiThemeColors {
     background: BinuiThemeColor;
     paper: BinuiThemeColor;
     text: BinuiThemeColor;
+    border: BinuiThemeColor;
 }
 
 export interface BinuiTheme {
     mode: BinuiThemeMode;
+    reverseMode: () => BinuiThemeMode;
     colors: BinuiThemeColors;
     borderRadius: string;
 }
 
 const defaultTheme = (): BinuiTheme => ({
     mode: 'light',
+    reverseMode: function () {
+        return this.mode === 'light' ? 'dark' : 'light';
+    },
     colors: {
         primary: {
             light: '#a09fea',
@@ -34,6 +39,10 @@ const defaultTheme = (): BinuiTheme => ({
         },
         text: {
             light: '#121212',
+            dark: '#f2f2f2',
+        },
+        border: {
+            light: '#bbbbbb',
             dark: '#f2f2f2',
         },
     },
