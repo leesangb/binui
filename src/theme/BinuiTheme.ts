@@ -42,8 +42,8 @@ const defaultTheme = (): BinuiTheme => ({
             dark: '#f2f2f2',
         },
         border: {
-            light: '#bbbbbb',
-            dark: '#f2f2f2',
+            light: '#aaaaaa',
+            dark: '#aaaaaa',
         },
     },
     borderRadius: '8px',
