@@ -8,13 +8,13 @@ export default {
     component: Text,
     argTypes: {
         as: {
-            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p'],
+            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p', 'strong', 'b'],
             control: {
                 type: 'select',
             },
         },
         variant: {
-            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p'],
+            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p', 'strong', 'b'],
             control: {
                 type: 'select',
             },
