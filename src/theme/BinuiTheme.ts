@@ -3,12 +3,13 @@ import deepmerge from 'deepmerge';
 export type BinuiThemeMode = 'light' | 'dark';
 
 type BinuiThemeColor = Record<BinuiThemeMode, string>;
+type BinuiTextColor = 'primary' | 'secondary';
 
 export interface BinuiThemeColors {
     primary: BinuiThemeColor;
     background: BinuiThemeColor;
     paper: BinuiThemeColor;
-    text: BinuiThemeColor;
+    text: Record<BinuiTextColor, BinuiThemeColor>;
     border: BinuiThemeColor;
 }
 
@@ -38,11 +39,17 @@ const defaultTheme = (): BinuiTheme => ({
             dark: '#3a3a3a',
         },
         text: {
-            light: '#121212',
-            dark: '#f2f2f2',
+            primary: {
+                light: '#121212',
+                dark: '#f2f2f2',
+            },
+            secondary: {
+                light: '#aaaaaa',
+                dark: '#555555',
+            },
         },
         border: {
-            light: '#aaaaaa',
+            light: '#dddddd',
             dark: '#aaaaaa',
         },
     },

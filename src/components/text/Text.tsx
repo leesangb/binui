@@ -9,7 +9,7 @@ const defaultComponent: TextComponentType = 'p';
 
 interface StyledTextProps {
     variant?: TextComponentType;
-    color?: CSSProperties['color'] | 'primary';
+    color?: CSSProperties['color'] | 'primary' | 'textPrimary' | 'textSecondary';
 }
 
 interface BinuiTextProps<T extends TextComponentType | undefined> extends StyledTextProps {
@@ -66,9 +66,22 @@ const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimp
     `,
 };
 
+const getTextColor = (theme: BinuiTheme, color: StyledTextProps['color']): string => {
+    if (color === 'primary') {
+        return theme.colors.primary[theme.mode];
+    }
+    if (!color || color === 'textPrimary') {
+        return theme.colors.text.primary[theme.mode];
+    }
+    if (color === 'textSecondary') {
+        return theme.colors.text.secondary[theme.mode];
+    }
+    return color;
+};
+
 
 const textStyle = ({ theme, color }: StyledTextProps & ThemeProps<BinuiTheme>) => css`
-  color: ${(color === 'primary' ? theme.colors.primary[theme.mode] : color) || theme.colors.text[theme.mode]};
+  color: ${getTextColor(theme, color)};
   transition: all 0.25s;
 `;
 
@@ -85,6 +98,7 @@ const Text = <T extends TextComponentType | undefined>({ as, ...others }: PropsW
 
 Text.defaultProps = {
     as: defaultComponent,
+    color: 'textPrimary',
 };
 
 export default Text;
