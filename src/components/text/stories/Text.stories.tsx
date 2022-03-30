@@ -58,9 +58,9 @@ H6.args = {
     as: 'h6',
     children,
 };
-export const P = Template.bind({});
-P.args = {
-    as: 'p',
+export const Div = Template.bind({});
+Div.args = {
+    as: 'div',
     children,
 };
 export const Span = Template.bind({});

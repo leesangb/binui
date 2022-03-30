@@ -5,6 +5,8 @@ import { BinuiTheme } from '../../theme';
 const components = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'strong', 'b'] as const;
 type TextComponentType = typeof components[number];
 
+const defaultComponent: TextComponentType = 'p';
+
 interface StyledTextProps {
     variant?: TextComponentType;
 }
@@ -70,7 +72,7 @@ const textStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
 `;
 
 const textVariantsStyle = ({ theme, as, variant }: BinuiTextProps<TextComponentType> & ThemeProps<BinuiTheme>) =>
-    styleMapping[variant || as || 'div'](theme);
+    styleMapping[variant || as || defaultComponent](theme);
 
 const StyledText = styled.div<BinuiTextProps<TextComponentType>>(
     textStyle,
@@ -78,10 +80,10 @@ const StyledText = styled.div<BinuiTextProps<TextComponentType>>(
 );
 
 const Text = <T extends TextComponentType | undefined>({ as, variant, ...others }: PropsWithChildren<TextProps<T>>) =>
-    <StyledText as={as || 'div'} variant={variant} {...others} />;
+    <StyledText as={as || defaultComponent} variant={variant} {...others} />;
 
 Text.defaultProps = {
-    as: 'div',
+    as: defaultComponent,
 };
 
 export default Text;
