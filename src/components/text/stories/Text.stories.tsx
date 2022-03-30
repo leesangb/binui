@@ -19,6 +19,11 @@ export default {
                 type: 'select',
             },
         },
+        color: {
+            control: {
+                type: 'text',
+            },
+        },
     },
 } as ComponentMeta<typeof Text>;
 
