@@ -2,8 +2,13 @@ import { CSSProperties, PropsWithChildren } from 'react';
 import styled, { css, FlattenSimpleInterpolation, ThemeProps } from 'styled-components';
 import { BinuiTheme } from '../../theme';
 
-const components = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'strong', 'b'] as const;
-type TextComponentType = typeof components[number];
+export const TEXT_COMPONENTS = ['div',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'span', 'p',
+    'strong', 'b', 'i', 'del', 'em',
+    'code', 'blockquote', 'pre',
+] as const;
+type TextComponentType = typeof TEXT_COMPONENTS[number];
 
 const defaultComponent: TextComponentType = 'p';
 
@@ -64,6 +69,27 @@ const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimp
       font-weight: 700;
       font-size: 1em;
     `,
+    code: theme => css`
+      font-family: Source Code Pro, Menlo, Consolas, Liberation Mono, monospace;
+    `,
+    em: theme => css`
+      font-style: italic;
+    `,
+    blockquote: theme => css`
+      padding-left: 16px;
+      font-style: italic;
+      border-left: 2px solid ${theme.colors.text.secondary[theme.mode]};
+      color: ${theme.colors.text.secondary[theme.mode]};
+      overflow-wrap: break-word;
+    `,
+    pre: theme => css`
+    `,
+    i: theme => css`
+      font-style: italic;
+    `,
+    del: theme => css`
+      text-decoration: line-through;
+    `,
 };
 
 const getTextColor = (theme: BinuiTheme, color: StyledTextProps['color']): string => {
@@ -82,6 +108,7 @@ const getTextColor = (theme: BinuiTheme, color: StyledTextProps['color']): strin
 
 const textStyle = ({ theme, color }: StyledTextProps & ThemeProps<BinuiTheme>) => css`
   color: ${getTextColor(theme, color)};
+  margin: 0;
   transition: all 0.25s;
 `;
 

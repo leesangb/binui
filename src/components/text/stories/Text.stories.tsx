@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Text from '../Text';
+import Text, { TEXT_COMPONENTS } from '../Text';
 
 const children = 'Hot pink보다 진한 보라색을 더 좋아해';
 
@@ -8,13 +8,13 @@ export default {
     component: Text,
     argTypes: {
         as: {
-            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p', 'strong', 'b'],
+            options: TEXT_COMPONENTS,
             control: {
                 type: 'select',
             },
         },
         variant: {
-            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p', 'strong', 'b'],
+            options: TEXT_COMPONENTS,
             control: {
                 type: 'select',
             },
@@ -81,6 +81,26 @@ Strong.args = {
 export const B = Template.bind({});
 B.args = {
     as: 'b',
+    children,
+};
+export const Code = Template.bind({});
+Code.args = {
+    as: 'code',
+    children,
+};
+export const Blockquote = Template.bind({});
+Blockquote.args = {
+    as: 'blockquote',
+    children,
+};
+export const Em = Template.bind({});
+Em.args = {
+    as: 'em',
+    children,
+};
+export const Pre = Template.bind({});
+Pre.args = {
+    as: 'pre',
     children,
 };
 
