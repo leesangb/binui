@@ -16,8 +16,8 @@ Default.args = {
     children: '바로가기',
 };
 
-const AnotherLink = ({ href, customProps }: PropsWithChildren<{ href: string, customProps: string }>) => {
-    return <a href={href}>{customProps}</a>;
+const AnotherLink = ({ href, customProps, ...other }: PropsWithChildren<{ href: string, customProps: string }>) => {
+    return <a href={href} {...other}>{customProps}</a>;
 };
 
 export const AsCustomComponent = Template.bind({});

@@ -2,11 +2,13 @@ import { ComponentProps, ComponentType } from 'react';
 import styled, { css, ThemeProps } from 'styled-components';
 import { BinuiTheme } from '../../theme';
 
-interface BinuiLinkProps<T extends 'a' | ComponentType | undefined> {
+type LinkComponentType = 'a' | ComponentType;
+
+interface BinuiLinkProps<T extends LinkComponentType | undefined> {
     as?: T;
 }
 
-type LinkProps<T extends 'a' | ComponentType | undefined> = BinuiLinkProps<T> & ComponentProps<NonNullable<T>>;
+type LinkProps<T extends LinkComponentType | undefined> = BinuiLinkProps<T> & ComponentProps<NonNullable<T>>;
 
 const linkStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
   color: ${theme.colors.primary[theme.mode]};
@@ -17,12 +19,12 @@ const linkStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
   }
 `;
 
-const StyledLink = styled.a<BinuiLinkProps<'a' | ComponentType>>(
+const StyledLink = styled.a<BinuiLinkProps<LinkComponentType>>(
     linkStyle,
 );
 
-const Link = <T extends 'a' | ComponentType | undefined>({ as, ...others }: LinkProps<T>) => {
-    return <StyledLink as={as} {...others}/>;
+const Link = <T extends LinkComponentType | undefined>({ as, ...others }: LinkProps<T>) => {
+    return <StyledLink as={as || 'a'} {...others}/>;
 };
 
 Link.defaultProps = {
