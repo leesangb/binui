@@ -23,31 +23,38 @@ interface BinuiTextProps<T extends TextComponentType | undefined> extends Styled
 
 type TextProps<T extends TextComponentType | undefined> = BinuiTextProps<T> & JSX.IntrinsicElements[NonNullable<T>]
 
+const headerMargin = '16px 0';
 
 const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimpleInterpolation> = {
     h1: theme => css`
       font-weight: 700;
       font-size: 2em;
+      margin: ${headerMargin};
     `,
     h2: theme => css`
       font-weight: 700;
       font-size: 1.8em;
+      margin: ${headerMargin};
     `,
     h3: theme => css`
       font-weight: 600;
       font-size: 1.6em;
+      margin: ${headerMargin};
     `,
     h4: theme => css`
       font-weight: 600;
       font-size: 1.4em;
+      margin: ${headerMargin};
     `,
     h5: theme => css`
       font-weight: 500;
       font-size: 1.2em;
+      margin: ${headerMargin};
     `,
     h6: theme => css`
       font-weight: 500;
       font-size: 1em;
+      margin: ${headerMargin};
     `,
     div: theme => css`
       font-weight: 400;
@@ -81,6 +88,7 @@ const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimp
       border-left: 2px solid ${theme.colors.text.secondary[theme.mode]};
       color: ${theme.colors.text.secondary[theme.mode]};
       overflow-wrap: break-word;
+      margin: 16px;
     `,
     pre: theme => css`
     `,
@@ -93,10 +101,13 @@ const styleMapping: Record<TextComponentType, (theme: BinuiTheme) => FlattenSimp
 };
 
 const getTextColor = (theme: BinuiTheme, color: StyledTextProps['color']): string => {
+    if (!color) {
+        return 'inherit';
+    }
     if (color === 'primary') {
         return theme.colors.primary[theme.mode];
     }
-    if (!color || color === 'textPrimary') {
+    if (color === 'textPrimary') {
         return theme.colors.text.primary[theme.mode];
     }
     if (color === 'textSecondary') {
@@ -125,7 +136,6 @@ const Text = <T extends TextComponentType | undefined>({ as, ...others }: PropsW
 
 Text.defaultProps = {
     as: defaultComponent,
-    color: 'textPrimary',
 };
 
 export default Text;
