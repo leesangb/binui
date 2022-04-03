@@ -136,6 +136,7 @@ const Text = <T extends TextComponentType | undefined>({ as, ...others }: PropsW
 
 Text.defaultProps = {
     as: defaultComponent,
+    color: 'textPrimary',
 };
 
 export default Text;

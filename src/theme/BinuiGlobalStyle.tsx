@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle(
       }
 
       ${TEXT_COMPONENTS.join(',')}, li, ul, ol, td, table, tr, th, a, button {
-        color: ${theme.colors.text.primary[theme.mode]};
         margin: 0;
       }
     `,
