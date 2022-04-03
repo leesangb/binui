@@ -16,15 +16,24 @@ export interface BinuiThemeColors {
 export interface BinuiTheme {
     mode: BinuiThemeMode;
     reverseMode: () => BinuiThemeMode;
+    spacing: (n: number) => string;
     colors: BinuiThemeColors;
     borderRadius: string;
 }
+
+const spacing = (n: number) => {
+    if (n < 0) {
+        return '0px';
+    }
+    return `${4 + 4 * n}px`;
+};
 
 const defaultTheme = (): BinuiTheme => ({
     mode: 'light',
     reverseMode: function () {
         return this.mode === 'light' ? 'dark' : 'light';
     },
+    spacing,
     colors: {
         primary: {
             light: '#a09fea',
@@ -53,7 +62,7 @@ const defaultTheme = (): BinuiTheme => ({
             dark: '#aaaaaa',
         },
     },
-    borderRadius: '8px',
+    borderRadius: spacing(1),
 });
 
 export const createBinuiTheme = (overrides: Partial<BinuiTheme> = {}): BinuiTheme =>
