@@ -28,7 +28,7 @@ const defaultTheme = (): BinuiTheme => ({
     colors: {
         primary: {
             light: '#a09fea',
-            dark: '#605edb',
+            dark: '#a09fea',
         },
         background: {
             light: '#fcfcfc',
@@ -45,7 +45,7 @@ const defaultTheme = (): BinuiTheme => ({
             },
             secondary: {
                 light: '#aaaaaa',
-                dark: '#555555',
+                dark: '#888888',
             },
         },
         border: {
