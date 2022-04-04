@@ -5,11 +5,18 @@ import { BinuiTheme, BinuiThemeMode } from '../../theme';
 
 type CardVariant = 'default' | 'outlined' | 'raised';
 
+export const CARD_COMPONENTS = [
+    'div', 'main', 'article', 'section', 'aside', 'body', 'details',
+] as const;
+
+type CardComponentType = typeof CARD_COMPONENTS[number];
+
 interface StyledBinuiCardProps {
     variant?: CardVariant;
 }
 
 interface BinuiCardProps extends StyledBinuiCardProps, HTMLAttributes<HTMLDivElement> {
+    as: CardComponentType;
 }
 
 const invertDarken: Record<BinuiThemeMode, (amount: string | number, color: string) => string> = {
@@ -53,12 +60,13 @@ const StyledCard = styled.div<StyledBinuiCardProps>(
     cardVariantStyles,
 );
 
-const Card = ({ variant, ...divProps }: BinuiCardProps) => {
-    return <StyledCard variant={variant} {...divProps}/>;
+const Card = ({ as = 'div', variant, ...divProps }: BinuiCardProps) => {
+    return <StyledCard as={as} variant={variant} {...divProps}/>;
 };
 
 Card.defaultProps = {
     variant: 'default',
+    as: 'div',
 };
 
 export default Card;
