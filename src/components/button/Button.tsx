@@ -16,6 +16,7 @@ type BinuiButtonVariant = 'default' | 'outlined' | 'contained';
 interface StyledBinuiButtonProps {
     variant?: BinuiButtonVariant;
     size?: BinuiButtonSize;
+    color?: CSSProperties['color'];
     weight?: CSSProperties['fontWeight'];
 }
 
@@ -30,35 +31,35 @@ const fontSize: Record<BinuiButtonSize, string> = {
     large: '1.2em',
 };
 
-const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme) => FlattenSimpleInterpolation> = {
-    default: theme => css`
+const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme, color?: string) => FlattenSimpleInterpolation> = {
+    default: (theme, color) => css`
       background-color: unset;
-      color: ${theme.colors.primary[theme.mode]};
+      color: ${color || theme.colors.primary[theme.mode]};
       border: none;
 
       &:hover {
-        color: ${invertDarken[theme.mode](0.1, theme.colors.primary[theme.mode])};
-        background-color: ${rgba(invertDarken[theme.mode](0.1, theme.colors.primary[theme.mode]), 0.05)};
+        color: ${invertDarken[theme.mode](0.1, color || theme.colors.primary[theme.mode])};
+        background-color: ${rgba(invertDarken[theme.mode](0.1, color || theme.colors.primary[theme.mode]), 0.05)};
       }
     `,
-    outlined: theme => css`
+    outlined: (theme, color) => css`
       background-color: unset;
-      color: ${theme.colors.primary[theme.mode]};
-      border: 1px solid ${theme.colors.primary[theme.mode]};
+      color: ${color || theme.colors.primary[theme.mode]};
+      border: 1px solid ${color || theme.colors.primary[theme.mode]};
 
       &:hover {
-        color: ${invertDarken [theme.mode](0.1, theme.colors.primary[theme.mode])};
-        border-color: ${invertDarken [theme.mode](0.1, theme.colors.primary [theme.mode])};
-        background-color: ${rgba(invertDarken [theme.mode](0.1, theme.colors.primary [theme.mode]), 0.05)};
+        color: ${invertDarken [theme.mode](0.1, color || theme.colors.primary[theme.mode])};
+        border-color: ${invertDarken [theme.mode](0.1, color || theme.colors.primary [theme.mode])};
+        background-color: ${rgba(invertDarken [theme.mode](0.1, color || theme.colors.primary [theme.mode]), 0.05)};
       }
     `,
-    contained: theme => css`
-      color: ${readableColor(theme.colors.primary[theme.mode])};
-      background-color: ${theme.colors.primary[theme.mode]};
+    contained: (theme, color) => css`
+      color: ${readableColor(color || theme.colors.primary[theme.mode])};
+      background-color: ${color || theme.colors.primary[theme.mode]};
       border: none;
 
       &:hover {
-        background-color: ${darken(0.05, theme.colors.primary[theme.mode])};
+        background-color: ${darken(0.05, color || theme.colors.primary[theme.mode])};
       }
     `,
 };
@@ -73,8 +74,8 @@ const buttonStyles = ({ theme, size, weight }: StyledBinuiButtonProps & { theme:
   user-select: none;
 `;
 
-const buttonVariantStyles = ({ variant, theme }: StyledBinuiButtonProps & { theme: BinuiTheme }) =>
-    buttonVariants[variant || 'default'](theme);
+const buttonVariantStyles = ({ variant, theme, color }: StyledBinuiButtonProps & { theme: BinuiTheme }) =>
+    buttonVariants[variant || 'default'](theme, color);
 
 const StyledButton = styled.button<StyledBinuiButtonProps>(
     buttonStyles,

@@ -27,6 +27,11 @@ export default {
             },
             defaultValue: '500',
         },
+        color: {
+            control: {
+                type: 'color'
+            }
+        },
         onClick: {
             action: 'clicked',
         },
