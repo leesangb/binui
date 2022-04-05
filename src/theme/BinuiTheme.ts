@@ -4,6 +4,7 @@ export type BinuiThemeMode = 'light' | 'dark';
 
 type BinuiThemeColor = Record<BinuiThemeMode, string>;
 type BinuiTextColor = 'primary' | 'secondary';
+type BinuiBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface BinuiThemeColors {
     primary: BinuiThemeColor;
@@ -13,12 +14,18 @@ export interface BinuiThemeColors {
     border: BinuiThemeColor;
 }
 
+interface BinuiBreakpoints extends Record<BinuiBreakpoint, number> {
+    up: (breakpoint: BinuiBreakpoint) => string;
+    down: (breakpoint: BinuiBreakpoint) => string;
+}
+
 export interface BinuiTheme {
     mode: BinuiThemeMode;
     reverseMode: () => BinuiThemeMode;
     spacing: (n: number) => string;
     colors: BinuiThemeColors;
     borderRadius: string;
+    breakpoints: BinuiBreakpoints;
 }
 
 const spacing = (n: number) => {
@@ -63,6 +70,19 @@ const defaultTheme = (): BinuiTheme => ({
         },
     },
     borderRadius: spacing(1),
+    breakpoints: {
+        xs: 450,
+        sm: 600,
+        md: 800,
+        lg: 1200,
+        xl: 1600,
+        down: function (breakpoint) {
+            return `@media only screen and (max-width: ${this[breakpoint]}px)`;
+        },
+        up: function (breakpoint) {
+            return `@media only screen and (min-width: ${this[breakpoint]}px)`;
+        },
+    },
 });
 
 export const createBinuiTheme = (overrides: Partial<BinuiTheme> = {}): BinuiTheme =>
