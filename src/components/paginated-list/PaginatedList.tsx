@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { BinuiTheme } from '../../theme';
 
-interface PaginatedListProps<T extends object> {
+export interface PaginatedListProps<T extends object> {
     render: (item: T) => ReactElement;
     items: T[];
     /** 1 based current page */

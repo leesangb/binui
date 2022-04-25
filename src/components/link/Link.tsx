@@ -4,7 +4,7 @@ import { BinuiTheme } from '../../theme';
 
 type LinkComponentType = 'a' | ComponentType;
 
-interface BinuiLinkProps<T extends LinkComponentType | undefined> {
+export interface BinuiLinkProps<T extends LinkComponentType | undefined> {
     as?: T;
 }
 

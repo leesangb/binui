@@ -5,7 +5,7 @@ import { BinuiTheme, BinuiThemeMode } from '../../theme';
 
 type ButtonType = 'button' | 'a';
 
-interface BinuiButtonProps<T extends ButtonType | undefined> extends StyledBinuiButtonProps {
+export interface BinuiButtonProps<T extends ButtonType | undefined> extends StyledBinuiButtonProps {
     as?: T;
 }
 
