@@ -22,6 +22,7 @@ const AnotherLink = ({ href, customProps, ...other }: PropsWithChildren<{ href: 
 
 export const AsCustomComponent = Template.bind({});
 AsCustomComponent.args = {
+    // @ts-ignore
     as: AnotherLink,
     href: '#',
     customProps: '나는 커스텀 컴포넌트의 props야',

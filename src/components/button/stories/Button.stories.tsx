@@ -29,8 +29,8 @@ export default {
         },
         color: {
             control: {
-                type: 'color'
-            }
+                type: 'color',
+            },
         },
         onClick: {
             action: 'clicked',

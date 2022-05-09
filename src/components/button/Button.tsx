@@ -5,7 +5,7 @@ import { BinuiTheme, BinuiThemeMode } from '../../theme';
 
 type ButtonType = 'button' | 'a';
 
-interface BinuiButtonProps<T extends ButtonType | undefined> extends StyledBinuiButtonProps {
+export interface BinuiButtonProps<T extends ButtonType | undefined> extends StyledBinuiButtonProps {
     as?: T;
 }
 
@@ -34,32 +34,32 @@ const fontSize: Record<BinuiButtonSize, string> = {
 const buttonVariants: Record<BinuiButtonVariant, (theme: BinuiTheme, color?: string) => FlattenSimpleInterpolation> = {
     default: (theme, color) => css`
       background-color: unset;
-      color: ${color || theme.colors.primary[theme.mode]};
+      color: ${color || theme.palette.primary};
       border: none;
 
       &:hover {
-        color: ${invertDarken[theme.mode](0.1, color || theme.colors.primary[theme.mode])};
-        background-color: ${rgba(invertDarken[theme.mode](0.1, color || theme.colors.primary[theme.mode]), 0.05)};
+        color: ${invertDarken[theme.mode](0.1, color || theme.palette.primary)};
+        background-color: ${rgba(invertDarken[theme.mode](0.1, color || theme.palette.primary), 0.05)};
       }
     `,
     outlined: (theme, color) => css`
       background-color: unset;
-      color: ${color || theme.colors.primary[theme.mode]};
-      border: 1px solid ${color || theme.colors.primary[theme.mode]};
+      color: ${color || theme.palette.primary};
+      border: 1px solid ${color || theme.palette.primary};
 
       &:hover {
-        color: ${invertDarken [theme.mode](0.1, color || theme.colors.primary[theme.mode])};
-        border-color: ${invertDarken [theme.mode](0.1, color || theme.colors.primary [theme.mode])};
-        background-color: ${rgba(invertDarken [theme.mode](0.1, color || theme.colors.primary [theme.mode]), 0.05)};
+        color: ${invertDarken [theme.mode](0.1, color || theme.palette.primary)};
+        border-color: ${invertDarken [theme.mode](0.1, color || theme.palette.primary)};
+        background-color: ${rgba(invertDarken [theme.mode](0.1, color || theme.palette.primary), 0.05)};
       }
     `,
     contained: (theme, color) => css`
-      color: ${readableColor(color || theme.colors.primary[theme.mode])};
-      background-color: ${color || theme.colors.primary[theme.mode]};
+      color: ${readableColor(color || theme.palette.primary)};
+      background-color: ${color || theme.palette.primary};
       border: none;
 
       &:hover {
-        background-color: ${darken(0.05, color || theme.colors.primary[theme.mode])};
+        background-color: ${darken(0.05, color || theme.palette.primary)};
       }
     `,
 };

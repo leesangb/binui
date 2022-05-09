@@ -15,9 +15,7 @@ npm install styled-components
 ## Usage
 
 ```typescript jsx
-import { BinuiThemeProvider, createBinuiTheme, Button } from '@leesangb/binui';
-
-const theme = createBinuiTheme();
+import { BinuiThemeProvider, Button } from '@leesangb/binui';
 
 const ChildComponent = () => {
     return (
@@ -29,11 +27,27 @@ const ChildComponent = () => {
 
 const App = () => {
     return (
-        <BinuiThemeProvider theme={theme}>
+        <BinuiThemeProvider mode={'light'/* light | dark */}
+                            overrides={{/* OverridableBinuiThemeCollection */ }}>
             {/* ... */}
             <ChildComponent/>
         </BinuiThemeProvider>
     )
+}
+```
+
+### Overridable theme
+
+```ts
+type OverridableBinuiPalette = Partial<Omit<BinuiPalette, 'text'>> & { text?: Partial<Pick<BinuiPalette, 'text'>> };
+
+type OverridableBinuiBreakpoints = Partial<Omit<BinuiBreakpoints, 'up' | 'down'>>
+
+interface OverridableBinuiThemeCollection {
+    light?: OverridableBinuiPalette;
+    dark?: OverridableBinuiPalette;
+    borderRadius?: string;
+    breakpoints?: OverridableBinuiBreakpoints;
 }
 ```
 

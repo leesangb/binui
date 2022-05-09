@@ -4,14 +4,14 @@ import { BinuiTheme } from '../../theme';
 
 type LinkComponentType = 'a' | ComponentType;
 
-interface BinuiLinkProps<T extends LinkComponentType | undefined> {
+export interface BinuiLinkProps<T extends LinkComponentType | undefined> {
     as?: T;
 }
 
 type LinkProps<T extends LinkComponentType | undefined> = BinuiLinkProps<T> & ComponentProps<NonNullable<T>>;
 
 const linkStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
-  color: ${theme.colors.primary[theme.mode]};
+  color: ${theme.palette.primary};
   text-decoration: none;
 
   &:hover {
