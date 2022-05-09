@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { createGlobalStyle, css } from 'styled-components';
 import { TEXT_COMPONENTS } from '../components/text/Text';
 import { BinuiTheme } from './BinuiTheme';
-import { useTheme } from './index';
+import useTheme from './useTheme';
 
 const GlobalStyle = createGlobalStyle(
     ({ theme }: { theme: BinuiTheme }) => css`

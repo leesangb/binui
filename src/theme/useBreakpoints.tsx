@@ -1,5 +1,5 @@
-import { useTheme } from './index';
 import useDimensions from './useDimensions';
+import useTheme from './useTheme';
 
 const useBreakpoints = () => {
     const { width } = useDimensions();
