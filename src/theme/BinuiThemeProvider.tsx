@@ -1,16 +1,29 @@
-import { PropsWithChildren } from 'react';
+import { createContext, PropsWithChildren } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { BinuiTheme } from './BinuiTheme';
+import { BinuiThemeMode } from './BinuiTheme';
+import { createBinuiTheme, OverridableBinuiThemeCollection } from './createBinuiTheme';
 
 interface BinuiThemeProviderProps {
-    theme: BinuiTheme;
+    mode: BinuiThemeMode;
+    overrides?: OverridableBinuiThemeCollection;
 }
 
-const BinuiThemeProvider = ({ theme, children }: PropsWithChildren<BinuiThemeProviderProps>) => {
+export const BinuiThemeContext = createContext({
+    invertMode: () => {
+    },
+    setMode: (_: BinuiThemeMode) => {
+    },
+});
+
+const BinuiThemeProvider = ({ mode: defaultMode, overrides, children }: PropsWithChildren<BinuiThemeProviderProps>) => {
+    const { theme, invertMode, setMode } = createBinuiTheme(defaultMode, overrides);
+
     return (
-        <ThemeProvider theme={theme}>
-            {children}
-        </ThemeProvider>
+        <BinuiThemeContext.Provider value={{ invertMode, setMode }}>
+            <ThemeProvider theme={theme}>
+                {children}
+            </ThemeProvider>
+        </BinuiThemeContext.Provider>
     );
 };
 

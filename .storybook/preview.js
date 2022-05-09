@@ -1,5 +1,5 @@
 import { useDarkMode } from 'storybook-dark-mode';
-import { BinuiGlobalStyle, createBinuiTheme } from '../src';
+import { BinuiGlobalStyle } from '../src';
 import BinuiThemeProvider from '../src/theme/BinuiThemeProvider';
 
 export const parameters = {
@@ -15,7 +15,7 @@ export const parameters = {
 
 export const decorators = [
     (Story) => (
-        <BinuiThemeProvider theme={createBinuiTheme({ mode: useDarkMode() ? 'dark' : 'light' })}>
+        <BinuiThemeProvider mode={useDarkMode() ? 'dark' : 'light'}>
             <BinuiGlobalStyle/>
             <Story/>
         </BinuiThemeProvider>

@@ -26,20 +26,20 @@ const invertDarken: Record<BinuiThemeMode, (amount: string | number, color: stri
 
 
 const cardVariants: Record<CardVariant, (theme: BinuiTheme) => FlattenSimpleInterpolation> = {
-    default: theme => css`
+    default: () => css`
     `,
     outlined: theme => css`
-      border: 1px solid ${theme.colors.border[theme.mode]};
+      border: 1px solid ${theme.palette.border};
 
       &:hover {
-        border: 1px solid ${invertDarken[theme.mode](0.15, theme.colors.border[theme.mode])};
+        border: 1px solid ${invertDarken[theme.mode](0.15, theme.palette.border)};
       }
     `,
     raised: theme => css`
-      box-shadow: ${`1px 1px 5px 0px ${darken(0.15, theme.colors.background[theme.mode])}`};
+      box-shadow: ${`1px 1px 5px 0px ${darken(0.15, theme.palette.background)}`};
 
       &:hover {
-        box-shadow: ${`3px 3px 8px 0px ${darken(0.15, theme.colors.background[theme.mode])}`};
+        box-shadow: ${`3px 3px 8px 0px ${darken(0.15, theme.palette.background)}`};
 
       }
     `,
@@ -47,7 +47,7 @@ const cardVariants: Record<CardVariant, (theme: BinuiTheme) => FlattenSimpleInte
 
 const cardStyles = ({ theme }: { theme: BinuiTheme }) => css`
   border-radius: ${theme.borderRadius};
-  background-color: ${theme.colors.paper[theme.mode]};
+  background-color: ${theme.palette.paper};
   padding: 8px;
   transition: all 0.25s;
 `;

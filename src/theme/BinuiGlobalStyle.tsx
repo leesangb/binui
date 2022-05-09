@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 import { createGlobalStyle, css } from 'styled-components';
 import { TEXT_COMPONENTS } from '../components/text/Text';
 import { BinuiTheme } from './BinuiTheme';
-import useTheme from './useTheme';
+import useBinuiTheme from './useBinuiTheme';
 
 const GlobalStyle = createGlobalStyle(
     ({ theme }: { theme: BinuiTheme }) => css`
       body {
-        background-color: ${theme.colors.background[theme.mode]};
+        background-color: ${theme.palette.background};
         font-size: 16px;
       }
 
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle(
 );
 
 const BinuiGlobalStyle = () => {
-    const theme = useTheme();
+    const { theme } = useBinuiTheme();
     return useMemo(() => <GlobalStyle theme={theme}/>, [theme]);
 };
 

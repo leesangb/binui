@@ -11,7 +11,7 @@ export interface BinuiLinkProps<T extends LinkComponentType | undefined> {
 type LinkProps<T extends LinkComponentType | undefined> = BinuiLinkProps<T> & ComponentProps<NonNullable<T>>;
 
 const linkStyle = ({ theme }: ThemeProps<BinuiTheme>) => css`
-  color: ${theme.colors.primary[theme.mode]};
+  color: ${theme.palette.primary};
   text-decoration: none;
 
   &:hover {

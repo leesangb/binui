@@ -1,9 +1,9 @@
+import useBinuiTheme from './useBinuiTheme';
 import useDimensions from './useDimensions';
-import useTheme from './useTheme';
 
 const useBreakpoints = () => {
     const { width } = useDimensions();
-    const { breakpoints: { xs, sm, md, lg, xl } } = useTheme();
+    const { theme: { breakpoints: { xs, sm, md, lg, xl } } } = useBinuiTheme();
     const xsDown = width <= xs;
     const xsUp = width > xs;
     const smDown = width <= sm;
