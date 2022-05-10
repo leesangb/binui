@@ -6,7 +6,7 @@ import useDimensions from '../useDimensions';
 
 const Test = styled.div(
     ({ theme }: ThemeProps<BinuiTheme>) => css`
-      color: ${theme.colors.text.primary[theme.mode]};
+      color: ${theme.palette.text.primary};
 
       ${theme.breakpoints.up('lg')} {
         font-size: 20px;
