@@ -9,7 +9,7 @@ interface BinuiThemeProviderProps {
 }
 
 export const BinuiThemeContext = createContext({
-    invertMode: (onInvert?: () => void) => {
+    invertMode: (onInvert?: (mode: { previous: BinuiThemeMode, next: BinuiThemeMode }) => void) => {
     },
     setMode: (_: BinuiThemeMode) => {
     },
@@ -19,12 +19,14 @@ const BinuiThemeProvider = ({ mode: defaultMode, overrides, children }: PropsWit
     const themes = useMemo(() => createBinuiTheme(overrides), []);
     const [theme, setTheme] = useState<BinuiTheme>(themes[defaultMode]);
 
-    const invertMode = useCallback((onInvert?: () => void) => {
-        setTheme(theme => theme.mode === 'light' ? themes.dark : themes.light);
+    const invertMode = useCallback((onInvert?: (mode: { previous: BinuiThemeMode, next: BinuiThemeMode }) => void) => {
+        const previous = theme.mode;
+        const next = theme.mode === 'light' ? 'dark' : 'light';
+        setTheme(themes[next]);
         if (onInvert) {
-            onInvert();
+            onInvert({ previous, next });
         }
-    }, []);
+    }, [theme.mode]);
     const setMode = useCallback((mode: BinuiThemeMode) => setTheme(themes[mode]), []);
 
     useEffect(() => {

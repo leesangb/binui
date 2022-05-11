@@ -21,7 +21,7 @@ const ChildComponent = () => {
     const { theme, invertMode, setMode } = useBinuiTheme();
     return (
         <>
-            <Button label={'안녕 친구들!'} onClick={() => invertMode()}/>
+            <Button label={'안녕 친구들!'} onClick={() => invertMode((mode) => console.log(mode))}/>
             <Text>{theme.mode}</Text>
         </>
     )
