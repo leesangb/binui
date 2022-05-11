@@ -15,12 +15,14 @@ npm install styled-components
 ## Usage
 
 ```typescript jsx
-import { BinuiThemeProvider, Button } from '@leesangb/binui';
+import { BinuiThemeProvider, Button, useBinuiTheme, Text } from '@leesangb/binui';
 
 const ChildComponent = () => {
+    const { theme, invertMode, setMode } = useBinuiTheme();
     return (
         <>
-            <Button label={'안녕 친구들!'} onClick={() => alert('클릭!')}/>
+            <Button label={'안녕 친구들!'} onClick={() => invertMode()}/>
+            <Text>{theme.mode}</Text>
         </>
     )
 }

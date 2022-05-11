@@ -1,6 +1,5 @@
 import deepmerge from 'deepmerge';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { BinuiBreakpoints, BinuiPalette, BinuiTheme, BinuiThemeMode } from './BinuiTheme';
+import { BinuiBreakpoints, BinuiPalette, BinuiTheme } from './BinuiTheme';
 
 const defaultLightPalette: BinuiPalette = {
     primary: '#a09fea',
@@ -75,35 +74,27 @@ export interface OverridableBinuiThemeCollection {
     breakpoints?: OverridableBinuiBreakpoints;
 }
 
-export const createBinuiTheme = (mode: BinuiThemeMode = 'light', overrides: OverridableBinuiThemeCollection = {}) => {
-    const themeCollection = useMemo(() => deepmerge(defaultBinuiThemeCollection, overrides), []);
-    const [theme, setTheme] = useState<BinuiTheme>({
-        mode,
-        palette: themeCollection[mode],
+export const createBinuiTheme = (overrides: OverridableBinuiThemeCollection = {}) => {
+    const themeCollection = deepmerge(defaultBinuiThemeCollection, overrides);
+
+    const dark: BinuiTheme = {
+        mode: 'dark',
+        palette: themeCollection.dark,
         borderRadius: themeCollection.borderRadius,
         breakpoints: themeCollection.breakpoints,
         spacing: themeCollection.spacing,
-    });
-    const [currentMode, setCurrentMode] = useState<BinuiThemeMode>(mode);
+    };
 
-    useEffect(() => {
-        setCurrentMode(mode);
-    }, [mode]);
-
-    useEffect(() => {
-        setTheme(theme => ({
-            ...theme,
-            mode: currentMode,
-            palette: themeCollection[currentMode],
-        }));
-    }, [currentMode]);
-
-    const setMode = useCallback((mode: BinuiThemeMode) => setCurrentMode(mode), []);
-    const invertMode = useCallback(() => setCurrentMode(currentMode => currentMode === 'light' ? 'dark' : 'light'), []);
+    const light: BinuiTheme = {
+        mode: 'light',
+        palette: themeCollection.light,
+        borderRadius: themeCollection.borderRadius,
+        breakpoints: themeCollection.breakpoints,
+        spacing: themeCollection.spacing,
+    };
 
     return {
-        theme,
-        setMode,
-        invertMode,
+        light,
+        dark,
     };
 };

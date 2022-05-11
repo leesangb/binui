@@ -1,6 +1,6 @@
-import { createContext, PropsWithChildren } from 'react';
+import { createContext, PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { BinuiThemeMode } from './BinuiTheme';
+import { BinuiTheme, BinuiThemeMode } from './BinuiTheme';
 import { createBinuiTheme, OverridableBinuiThemeCollection } from './createBinuiTheme';
 
 interface BinuiThemeProviderProps {
@@ -9,14 +9,27 @@ interface BinuiThemeProviderProps {
 }
 
 export const BinuiThemeContext = createContext({
-    invertMode: () => {
+    invertMode: (onInvert?: () => void) => {
     },
     setMode: (_: BinuiThemeMode) => {
     },
 });
 
 const BinuiThemeProvider = ({ mode: defaultMode, overrides, children }: PropsWithChildren<BinuiThemeProviderProps>) => {
-    const { theme, invertMode, setMode } = createBinuiTheme(defaultMode, overrides);
+    const themes = useMemo(() => createBinuiTheme(overrides), []);
+    const [theme, setTheme] = useState<BinuiTheme>(themes[defaultMode]);
+
+    const invertMode = useCallback((onInvert?: () => void) => {
+        setTheme(theme => theme.mode === 'light' ? themes.dark : themes.light);
+        if (onInvert) {
+            onInvert();
+        }
+    }, []);
+    const setMode = useCallback((mode: BinuiThemeMode) => setTheme(themes[mode]), []);
+
+    useEffect(() => {
+        setTheme(themes[defaultMode]);
+    }, [defaultMode]);
 
     return (
         <BinuiThemeContext.Provider value={{ invertMode, setMode }}>
